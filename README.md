@@ -1,6 +1,6 @@
 # feb-28-fullstack
 
-###Step-1
+### Step-1
 Open your terminal
 
 `cd client` 
@@ -9,7 +9,7 @@ Open your terminal
 
 - run `yarn start` to start your react server
 
-###Step-2
+### Step-2
 Open a separet terminal
 
 `cd server`
