@@ -18,6 +18,6 @@ Open a separet terminal
 
 add your MONGODB_URI into `.env` file
 
-`MONGODB_URI='your mongodb URI`
+`MONGODB_URI="your mongodb URI"`
 
 - run `npm run server` to start your server and connect to your DB
