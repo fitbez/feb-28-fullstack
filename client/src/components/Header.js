@@ -1,25 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledHeader = styled.div`
+  background-color: #3f51b5;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+`;
 
 function Header() {
   return (
-    <div
-      style={{
-        // width: "15%",
-        backgroundColor: "#f4f4f4",
-        width: "100%",
-        textAlign: "left",
-        paddingLeft: "1rem",
-        display: "flex",
-        justifyContent: "space-between",
-      }}
-    >
+    <StyledHeader>
       <div className='logo' style={{ fontSize: "2rem", marginLeft: "2rem" }}>
         {" "}
         Product
       </div>
       <div className='menu-item'>
-        <div style={styleMenuItem}>
+        <ul style={styleMenuItem}>
           <Link to='/' style={styleListItems}>
             Home
           </Link>
@@ -29,9 +29,9 @@ function Header() {
           <Link to='/product-list' style={styleListItems}>
             Product List
           </Link>
-        </div>
+        </ul>
       </div>
-    </div>
+    </StyledHeader>
   );
 }
 
@@ -45,6 +45,11 @@ const styleMenuItem = {
 
 const styleListItems = {
   cursor: "pointer",
+  color: "#fff",
+  textDecoration: "none",
+  "&:hover": {
+    color: "#f4f4f4f",
+  },
 };
 
 export default Header;

@@ -3,6 +3,8 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { ProductContext } from "../ProductContext";
 import Header from "./Header";
+import Button from "./Button";
+import Wrapper from "./Wrapper";
 
 const Title = styled.p`
   font-size: 1.5em;
@@ -15,7 +17,6 @@ const ProductName = styled.input`
   border: 1px solid #333;
   border-radius: 5px;
   font-size: 0.8rem;
-  width: 100%;
 `;
 
 const ProductPrice = styled.input`
@@ -23,31 +24,15 @@ const ProductPrice = styled.input`
   border: 1px solid #333;
   border-radius: 5px;
   font-size: 0.8rem;
-  width: 100%;
 `;
 
 const StyledForm = styled.form`
   display: flex;
+  width: auto;
+  margin: auto;
   flex-direction: column;
   gap: 20px;
-  justify-content: center;
   align-items: center;
-`;
-
-const Button = styled.button`
-  width: 20%;
-  padding: 0.5rem 0;
-  background-color: transparent;
-  font-size: 1rem;
-  border: 1px solid #000;
-  border-radius: 5px;
-  &:hover {
-    background-color: #03a9f4;
-    color: #fff;
-    border: 1px solid transparent;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-  }
 `;
 
 const Label = styled.label`
@@ -55,39 +40,48 @@ const Label = styled.label`
 `;
 
 const Form = function () {
-  const { handleChange, handleSubmit, newProduct } = useContext(ProductContext);
+  const { handleChange, handleSubmit, newProduct, product } =
+    useContext(ProductContext);
 
   const { name, price } = newProduct;
   return (
     <>
       <Header />
-      <Title>Please use the form to insert a prodcut</Title>
-      <StyledForm>
-        <div style={styledProduct}>
-          <Label forhtml='name'>Product name: </Label>
-          <ProductName
-            type='text'
-            name='name'
-            value={name}
-            id='name'
-            placeholder='product name'
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div style={{ display: "flex", gap: "8px" }}>
-          <Label forhtml='price'>Product price: </Label>
-          <ProductPrice
-            type='text'
-            name='price'
-            value={price}
-            id='price'
-            placeholder='price'
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
+      <Wrapper>
+        <Title>Product Entry Form</Title>
+        <StyledForm>
+          <div style={styledProduct}>
+            <Label forhtml='name'>Product name: </Label>
+            <ProductName
+              type='text'
+              name='name'
+              value={product.name}
+              id='name'
+              placeholder='product name'
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div style={{ display: "flex", gap: "8px" }}>
+            <Label forhtml='price'>Product price: </Label>
+            <ProductPrice
+              type='text'
+              name='price'
+              value={product.price}
+              id='price'
+              placeholder='price'
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
 
-        <Button onClick={(e) => handleSubmit(e)}>Submit</Button>
-      </StyledForm>
+          <Button
+            width='100%'
+            buttonValue='Submit'
+            backgroundColor='#3f51b5'
+            buttonColor='#3f51b5'
+            onClick={(e) => handleSubmit(e)}
+          />
+        </StyledForm>
+      </Wrapper>
     </>
   );
 };

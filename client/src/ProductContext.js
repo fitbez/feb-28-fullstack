@@ -11,6 +11,14 @@ export function ProductProvider(props) {
     price: "",
   });
 
+  const [product, setProduct] = useState({});
+
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
   const fetchProductData = async () => {
     const response = await axios.get(
       "http://localhost:5000/api/products/allproducts"
@@ -53,8 +61,27 @@ export function ProductProvider(props) {
     setNewProduct({ ...newProduct, [event.target.name]: event.target.value });
   };
 
-  const handleDelete = (id) => {
-    setNewProducts(newproducts.filter((prod) => prod.id !== id));
+  const handleUserChange = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
+  const handleUserSubmit = async (e) => {
+    e.preventDefault();
+    await axios.post("http://localhost:5000/api/user/register", user);
+    console.log("user", user);
+  };
+
+  const handleDelete = async (id) => {
+    await axios.delete(`http://localhost:5000/api/products/${id}`);
+    console.log("id", id);
+    fetchProductData();
+  };
+
+  const handleUpdate = async (id) => {
+    await axios
+      .get(`http://localhost:5000/api/products/find/${id}`)
+      .then((response) => setProduct(response.data));
+    navigate("/product-entry");
   };
 
   const handleFilter = (filterCriteria) => {
@@ -76,35 +103,22 @@ export function ProductProvider(props) {
       default:
         setNewProducts(newproducts);
     }
-
-    // filterCriteria === "price" &&
-    //   setNewProducts(newproducts.filter((product) => product.price >= 20));
-
-    // filterCriteria === "stationary" &&
-    //   setNewProducts(
-    //     newproducts.filter((product) => product.catagory === "Stationary")
-    //   );
-
-    //   console.log('do something!');
-
-    // filterCriteria === "clothing" &&
-    //   setNewProducts(
-    //     newproducts.filter((product) => product.catagory === "Clothing/shoes")
-    //   );
   };
-
-  const buttonValue = "X";
 
   return (
     <ProductContext.Provider
       value={{
+        product,
         newproducts,
         newProduct,
         handleChange,
+        user,
+        handleUserChange,
+        handleUserSubmit,
         handleSubmit,
-        buttonValue,
         handleDelete,
         handleFilter,
+        handleUpdate,
       }}
     >
       {props.children}

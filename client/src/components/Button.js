@@ -1,11 +1,36 @@
-import React, { useContext } from "react";
-import { ProductContext } from "../ProductContext";
+import styled from "styled-components";
 
-export default function Button({ product }) {
-  const { buttonValue, handleDelete } = useContext(ProductContext);
+const StyledButton = styled.button`
+  padding: 0.5rem;
+  background-color: transparent;
+  width: ${(props) => props.width};
+  border: 1px solid ${(props) => props.buttonColor};
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 1s;
+  &:hover {
+    background-color: ${(props) => props.backgroundColor};
+    color: #fff;
+    border: none;
+  }
+`;
+
+export default function Button({
+  product,
+  buttonColor,
+  buttonValue,
+  backgroundColor,
+  width,
+  onClick,
+}) {
   return (
-    <button onClick={() => handleDelete(product.id)} style={{ color: "red" }}>
+    <StyledButton
+      width={width}
+      buttonColor={buttonColor}
+      backgroundColor={backgroundColor}
+      onClick={onClick}
+    >
       {buttonValue}
-    </button>
+    </StyledButton>
   );
 }
